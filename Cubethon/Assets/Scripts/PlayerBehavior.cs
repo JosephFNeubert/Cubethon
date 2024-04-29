@@ -9,8 +9,8 @@ public class PlayerBehavior : MonoBehaviour
 
     // Player variables
     private bool movement = true;
-    public float forwardForce = 2000f;
-    public float sidewayForce = 500f;
+    public float forwardForce = 6000f;
+    public float sidewayForce = 50f;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +27,11 @@ public class PlayerBehavior : MonoBehaviour
 
             if (Input.GetKey("d"))
             {
-                _rb.AddForce(sidewayForce * Time.deltaTime, 0, 0);
+                _rb.AddForce(sidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
             }
             else if (Input.GetKey("a"))
             {
-                _rb.AddForce(-sidewayForce * Time.deltaTime, 0, 0);
+                _rb.AddForce(-sidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
             }
         }
     }
