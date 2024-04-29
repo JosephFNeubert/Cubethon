@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    // Game Manager
+    public GameBehavior gameManager;
+
     // Declare the Rigidbody component for the physics system
     public Rigidbody _rb;
 
@@ -15,6 +18,7 @@ public class PlayerBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameBehavior>();
         _rb = this.GetComponent<Rigidbody>();
     }
 
@@ -34,6 +38,11 @@ public class PlayerBehavior : MonoBehaviour
                 _rb.AddForce(-sidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
             }
         }
+
+        if(_rb.position.y < -1f)
+        {
+            gameManager.EndGame();
+        }
     }
 
     // Check for player collision
@@ -41,8 +50,9 @@ public class PlayerBehavior : MonoBehaviour
     {
         if(collisionInfo.collider.tag == "Obstacle")
         {
-            Debug.Log("Hit");
+            // Debug.Log("Hit");
             movement = false;
+            gameManager.EndGame();
         }
     }
 }

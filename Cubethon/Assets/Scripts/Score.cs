@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameBehavior : MonoBehaviour
+public class Score : MonoBehaviour
 {
     public Transform player;
     public Text scoreText;
@@ -11,7 +11,7 @@ public class GameBehavior : MonoBehaviour
     // Start is called before the first frame
     void Start()
     {
-        Debug.Log(player.position);
+      //  Debug.Log(player.position);
     }
 
     // Update is called once per frame
