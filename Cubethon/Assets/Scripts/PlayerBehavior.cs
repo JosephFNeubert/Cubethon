@@ -8,6 +8,7 @@ public class PlayerBehavior : MonoBehaviour
     public Rigidbody _rb;
 
     // Player variables
+    private bool movement = true;
     public float forwardForce = 2000f;
     public float sidewayForce = 500f;
 
@@ -20,15 +21,28 @@ public class PlayerBehavior : MonoBehaviour
     // Update for physics system
     void FixedUpdate()
     {
-        _rb.AddForce(0, 0, forwardForce * Time.deltaTime);
+        if(movement)
+        {
+            _rb.AddForce(0, 0, forwardForce * Time.deltaTime);
 
-        if(Input.GetKey("d"))
-        {
-            _rb.AddForce(sidewayForce * Time.deltaTime, 0, 0);
+            if (Input.GetKey("d"))
+            {
+                _rb.AddForce(sidewayForce * Time.deltaTime, 0, 0);
+            }
+            else if (Input.GetKey("a"))
+            {
+                _rb.AddForce(-sidewayForce * Time.deltaTime, 0, 0);
+            }
         }
-        else if(Input.GetKey("a"))
+    }
+
+    // Check for player collision
+    void OnCollisionEnter(Collision collisionInfo)
+    {
+        if(collisionInfo.collider.tag == "Obstacle")
         {
-            _rb.AddForce(-sidewayForce * Time.deltaTime, 0, 0);
+            Debug.Log("Hit");
+            movement = false;
         }
     }
 }
